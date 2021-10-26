@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Sell My Car</title>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+
+	<h3>Select Car Make</h3>
+	<select id='maker'></select>
+	<h3>Input Mileage</h3>
+	<input id='mileage'></input>
+	<!-- <button onclick='make_prediction()'>Predict</button> -->
+	<button onclick='predict_price()'>Predict</button>
+	<div id='result'></div>
+	<script>
+		var maker_list=d3.select('#maker')
+		d3.json('/maker_list').then(return_list=>{
+			for (var i=0; i<return_list.length; i++){
+				new_option=maker_list.append('option')
+				new_option.text(return_list[i])
+				new_option.property('value', return_list[i])
+			}
+		})
+		// function make_prediction(){
+		// 	var maker=d3.select('#maker').property('value')
+		// 	var mileage=d3.select('#mileage').property('value')
+		// 	console.log(maker)
+		// 	console.log(mileage)
+		// 	result=d3.select('#result')
+		// 	result.html('')
+		// 	result.append('h3').text('Result')
+		// 	if (maker && mileage) {
+		// 		console.log(`/predict?maker=${maker}&mileage=${mileage}`)
+		// 		d3.json(`/predict?maker=${maker}&mileage=${mileage}`).then(prediction=>{
+		// 		// d3.json('/sample').then(prediction=>{
+		// 			console.log(prediction)
+		// 			result.append('p').text(prediction['output'])
+		// 		})
+		// 	} else {
+		// 		result.append('p').text('Invalid Inputs')
+		// 	}
+		// }
+		function predict_price(){
+			var maker=d3.select('#maker').property('value')
+			var mileage=d3.select('#mileage').property('value')
+			window['location']['href']=`/predict_price?maker=${maker}&mileage=${mileage}`
+		}
+	</script>
+</body>
+</html>
